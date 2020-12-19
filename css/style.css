@@ -65,12 +65,19 @@ p{
     order: 2;
 }
 
+.press_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .press{
     font: 12pt 'Open Sans', serif;
     color: white;
     background-color: rgb(194, 56, 56);
     padding: 0.3em 2em;
     position: relative;
+    margin-bottom: 40px;
 }
 
 .pic_content{
