@@ -1,0 +1,30 @@
+.level3{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.section{
+    min-height: 100px;
+    min-width: 100px;
+    flex: 1 1 16%;
+    padding: 6px;
+    display: flex;
+}
+
+.pic{
+    height: 100px;
+    width: 100px;
+    outline: 2px solid black;
+    overflow: hidden;
+    display: block;
+    position: relative;
+
+}
+
+.selected{
+    outline: 4px solid blue;
+}
+
+.pic:hover{
+    outline-width: 6px;
+}

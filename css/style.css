@@ -1,0 +1,88 @@
+body{
+    background-color: rgb(163,141,101);
+}
+
+.container{
+    display: flex;
+    flex-flow: column;
+}
+
+.header{
+    order: 1;
+    font-family: 'Ubuntu', serif;
+    font-size: 26pt;
+    color: white;
+    flex: 0 1 10vh;
+}
+
+p{
+    text-align: center;
+}
+
+.content{
+    order: 2;
+    font-family: 'Open Sans', serif;
+    font-size: 26pt;
+    color: white;
+    flex: 1 1 75vh;
+}
+
+.footer{
+    order: 3;
+    flex: 0 1 4vh;
+    font-family: 'Open Sans', serif;
+    font-size: 13pt;
+    color: white;
+}
+
+.footer p{
+    text-align: right;
+    margin-top: 15px;
+}
+
+.level{
+    border: 2px solid rgb(52,58,64);
+    background-color: lightcyan;
+    flex-grow: 4;
+    flex-shrink: 8;
+    flex-basis: 80%;
+    order: 1;
+    min-height: 500px;
+    min-width: 850px;
+}
+
+.game_content{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.aside{
+    flex-basis: 20%;
+    min-width: 8em;
+    min-height: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    order: 2;
+}
+
+.press{
+    font: 12pt 'Open Sans', serif;
+    color: white;
+    background-color: rgb(194, 56, 56);
+    padding: 0.3em 2em;
+    position: relative;
+}
+
+.pic_content{
+    height: inherit;
+    width: inherit;
+}
+
+@media all and (max-width: 1170px) {
+    .game_content{
+        flex-flow: column nowrap;
+    }
+    .level{
+        order: 3;
+    }
+}

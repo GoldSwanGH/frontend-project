@@ -1,0 +1,27 @@
+.level1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.level1_content{
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 750px;
+}
+
+.pic{
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    outline: 2px solid black;
+    overflow: hidden;
+}
+
+.selected{
+    outline: 4px solid blue;
+}
+
+.pic:hover{
+    outline-width: 6px;
+}
