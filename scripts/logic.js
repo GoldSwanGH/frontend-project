@@ -1,12 +1,8 @@
 let content = document.getElementsByClassName("content").item(0);
 let aside = document.createElement("div");
 aside.classList.add("aside");
-let p = document.createElement("p");
-p.innerHTML = "Уровень 1";
 let text = document.createElement("p");
-text.innerHTML = "Выберите слова ";
-aside.appendChild(p);
-
+text.innerHTML = "Выберите все слова ";
 
 
 let images = document.getElementsByClassName("pic_content");
@@ -15,7 +11,7 @@ let level1 = [["с глухой буквой на конце", "с звонко�
 ["с буквой С в начале", "с буквой З в начале"]];
 
 let level2 = [["с удвоенной буквой", "без удвоенной буквы"],
-["с буквой Ё после Ж, Ш или Щ", "с буквой О после Ж, Ш или Щ"],
+["с буквой Ё после Ч, Ж, Ш или Щ", "с буквой О после Ч, Ж, Ш или Щ"],
 ["с твердым знаком", "с мягким знаком"]];
 
 let level3 = [["1-го склонения", "НЕ 1-го склонения"],
@@ -202,33 +198,68 @@ function fillImages(){
     }
 }
 
-function fillImagesDouble(){
+function fillImagesDouble(doubleFlag){
     let flag = false;
-    let nextImageToFill = 0;
-    picsIndexes = [];
-    for (let k = 0; k < pics.length; k++) {
-        if (pics[k].double == true) {
-            picsIndexes.push(k);
-        }
-    }
-    while ((truePics.length + falsePics.length != PicsCount) && picsIndexes.length != 0 && nextImageToFill - 1 != PicsCount) {
-
+    let picIndex;
+    let picIndexIndex;
+    let trueCount = randomInt(1, (PicsCount / 2) + 1);
+    let falseCount = PicsCount - trueCount;
+    while((truePics.length + falsePics.length < PicsCount || truePics.length != trueCount) && picsIndexes.length != 0){ // условие норм?
         picIndexIndex = randomInt(0, picsIndexes.length - 1);
         picIndex = picsIndexes[picIndexIndex];
-        flag = reg.test(pics[picIndex].word);
-        if (truePics.length != trueCount) {
-            if (flag) {
-                images.item(nextImageToFill).setAttribute('src', pics[picIndex].src);
-                truePics.push(nextImageToFill);
-                nextImageToFill++;
-                picsIndexes.splice(picIndexIndex, 1);
+        flag = reg1.test(pics[picIndex].word);
+        if (truePics.length != trueCount && flag){
+            //images.item(nextImageToFill).setAttribute('src', pics[picIndex].src);
+            truePics.push(picIndex);
+            picsIndexes.splice(picIndexIndex, 1);
+        }
+        else if (!flag){
+            //images.item(nextImageToFill).setAttribute('src', pics[picIndex].src);
+            falsePics.push(picIndex);
+            picsIndexes.splice(picIndexIndex, 1);
+        }
+    }
+
+    if (truePics.length == 0){
+        console.log("не нашлось картинок!");
+    }
+
+    if (trueCount > truePics.length){
+        trueCount = randomInt(1, truePics.length);
+        if (trueCount != truePics.length){
+            truePics.splice(trueCount, truePics.length - trueCount);
+        }
+        falseCount = PicsCount - trueCount;
+    }
+    
+    if (falseCount != falsePics.length){
+        falsePics.splice(falseCount, falsePics.length - falseCount);
+    }
+
+    picIndex = 0;
+    for(let c = 0; c < PicsCount; c++){
+        if (truePics.length != 0 && falsePics.length != 0){
+            ctr = randomInt(1, PicsCount);
+        }
+        if(truePics.length == 0){
+            ctr = PicsCount;
+        }
+        if(falsePics.length == 0){
+            ctr = trueCount;
+        }
+        if (ctr <= trueCount){
+            picIndex = truePics.pop();
+            images.item(c).setAttribute('src', pics[picIndex].src);
+            if (doubleFlag){
+                trueIDs.push(c+1);
             }
         }
-        if (falsePics.length != falseCount && flag == false) {
-            images.item(nextImageToFill).setAttribute('src', pics[picIndex].src);
-            falsePics.push(nextImageToFill);
-            nextImageToFill++;
-            picsIndexes.splice(picIndexIndex, 1);
+        if (ctr > trueCount){
+            picIndex = falsePics.pop();
+            images.item(c).setAttribute('src', pics[picIndex].src);
+            if (!doubleFlag){
+                trueIDs.push(c+1);
+            }
         }
     }
 }
@@ -324,24 +355,21 @@ if (level == 1) {
 else if (level == 2) {
     switch(full){
         case "0 0":
-            reg = /^.*(.)\1.*$/i;
-            fillImagesDouble();
+            reg1 = /^.*(.)\1.*$/i;
+            fillImagesDouble(true);
             break;
         case "0 1":
-            reg = /^.*(.)\1.*$/i;
-            fillImagesDouble();
-            temp = truePics;
-            truePics = falsePics;
-            falsePics = truePics;
+            reg1 = /^.*(.)\1.*$/i;
+            fillImagesDouble(false);
             break;
         case "1 0":
-            reg1 = /^.*(ж|ш|щ)ё.*$/i;
-            reg2 = /^.*(ж|ш|щ)о.*$/i;
+            reg1 = /^.*(ч|ж|ш|щ)ё.*$/i;
+            reg2 = /^.*(ч|ж|ш|щ)о.*$/i;
             fillImages();
             break;
         case "1 1":
-            reg1 = /^.*(ж|ш|щ)о.*$/i;
-            reg2 = /^.*(ж|ш|щ)ё.*$/i;
+            reg1 = /^.*(ч|ж|ш|щ)о.*$/i;
+            reg2 = /^.*(ч|ж|ш|щ)ё.*$/i;
             fillImages();
             break;
         case "2 0":
@@ -404,8 +432,8 @@ else if (level == 3) {
 ^.*(б|в|д|з|ж|г)$ - для звонкой на конце
 ^.*(п|ф|т|с|ш|к)$ - для глухой на конце
 ^.*(.)\1.*$ - для удвоенной
-^.*(ж|ш|щ)ё.*$ - для Ё после Ж, Ш, Щ
-^.*(ж|ш|щ)о.*$ - для О после Ж, Ш, Щ
+^.*(ч|ж|ш|щ)ё.*$ - для Ё после Ж, Ш, Щ
+^.*(ч|ж|ш|щ)о.*$ - для О после Ж, Ш, Щ
 ^.*ь.*$ - для мягкого знака
 ^.*ъ.*$ - для твердого знака
 
@@ -427,6 +455,17 @@ for (let x = 0; x < press.length; x++){
     press.item(x).addEventListener("click", select, {once : true});
 }
 
+let p = document.createElement("p");
+if (level == 1){
+    p.innerHTML = "Уровень 1";
+}
+else if (level == 2){
+    p.innerHTML = "Уровень 2";
+}
+else if (level == 3){
+    p.innerHTML = "Уровень 3";
+}
+aside.appendChild(p);
 aside.appendChild(text);
 
 let mistakes = 0;
@@ -449,7 +488,26 @@ function check(){
             return;
         }
     }
-    alert("правильно!");
+    alert("правильно!"); /*
+    let elem = document.createElement("a");
+    if (level == 1){
+        elem.href = "../pages/level2.html";
+        elem.innerHTML = "Следующий уровень";
+    }
+    if (level == 2){
+        elem.href = "../pages/level3.html";
+        elem.innerHTML = "Следующий уровень";
+    }
+    if (level == 3){
+        elem.href = "../pages/final.html";
+        elem.innerHTML = "Результаты";
+    }
+    elem.classList.add("press");
+    let cont = document.createElement("div");
+    cont.classList.add("press_container");
+    cont.appendChild(elem);
+    let targ = document.getElementsByClassName("aside").item(0);
+    targ.appendChild(cont); */
 }
 
 
@@ -468,6 +526,9 @@ content.appendChild(aside);
 
 aside = document.getElementsByClassName("aside").item(0);
 
-aside.appendChild(button);
+let div = document.createElement("div");
+div.classList.add("press_container");
+div.appendChild(button);
+aside.appendChild(div);
 
 
