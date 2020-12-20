@@ -18,6 +18,7 @@ input{
     height: 50px;
     font: 11pt 'Open Sans', serif;
     outline: 2px solid black;
+    cursor: pointer;
 }
 
 

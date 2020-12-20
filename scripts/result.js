@@ -67,14 +67,12 @@ document.querySelector('#btnSave').addEventListener('click', () => {
     time = Math.floor((user.level3Time - user.level2Time)/60) + " мин. " + (Math.round(((user.level3Time - user.level2Time) % 60)*10) / 10) + " сек.";
     textArea += "\nЗадание уровня 3: " + text + level3[task][variant] + "\nВремя на уровень 3: " + time + "\nОшибок на уровне 3: " + user.level3mistakes;
 
-    let grade;
-    if((1100 - user.time - user.mistakes * 80) > 0){
-        grade = 1100 - user.time - user.mistakes * 80;
-    }
-    if((1100 - user.time - user.mistakes * 80) > 1000){
+    let grade = 1100 - user.time - user.level1mistakes * 140 - user.level2mistakes * 80 - user.level3mistakes * 70;
+    
+    if(grade >= 1000){
         grade = 1000;
     }
-    else if((1100 - user.time - user.mistakes * 80) <= 0){
+    else if(grade <= 0){
         grade = 0;
     }
     
