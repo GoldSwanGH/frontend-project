@@ -4,11 +4,12 @@ aside.classList.add("aside");
 let text = document.createElement("p");
 text.classList.add("text");
 text.innerHTML = "Выберите все слова ";
+currentTheme = JSON.parse(localStorage.getItem("theme"));
 
 
 let images = document.getElementsByClassName("pic_content");
 let PicsCount = images.length; // от 1 до (PicsCount / 2) + 1
-let level1 = [["с глухой буквой на конце", "с звонкой буквой на конце"],
+let level1 = [["с глухой согласной на конце", "с звонкой согласной на конце"],
 ["с буквой С в начале", "с буквой З в начале"]];
 
 let level2 = [["с удвоенной буквой", "без удвоенной буквы"],
@@ -570,9 +571,11 @@ function check(){
         anim = document.getElementById('failure');
         anim.style.display = 'block';
         anim.classList.add('anim');
+        button.removeEventListener("click", check);
         setTimeout(() => {
             anim.classList.remove('anim');
             anim.style.display = 'none';
+            button.addEventListener("click", check);
         }, 4000);
         return;
     }
@@ -586,9 +589,11 @@ function check(){
             anim = document.getElementById('failure');
             anim.style.display = 'block';
             anim.classList.add('anim');
+            button.removeEventListener("click", check);
             setTimeout(() => {
                 anim.classList.remove('anim');
                 anim.style.display = 'none';
+                button.addEventListener("click", check);
             }, 4000);
             return;
         }
@@ -608,20 +613,25 @@ function check(){
     let elem = document.createElement("a");
     if (level == 1){
         data.level1Time = data.time;
+        data.level1mistakes = data.mistakes;
         elem.href = "../pages/level2.html";
         elem.innerHTML = "Уровень 2";
     }
     if (level == 2){
         data.level2Time = data.time;
+        data.level2mistakes = data.mistakes - data.level1mistakes;
         elem.href = "../pages/level3.html";
         elem.innerHTML = "Уровень 3";
     }
     if (level == 3){
         data.level3Time = data.time;
+        data.level3mistakes = data.mistakes - data.level1mistakes - data.level2mistakes;
         elem.href = "../pages/final.html";
         elem.innerHTML = "Результаты";
     }
     elem.classList.add("press");
+    elem.style.backgroundColor = currentTheme.buttonColor;
+    elem.style.color = currentTheme.textColor;
     let cont = document.createElement("div");
     cont.classList.add("press_container");
     cont.appendChild(elem);
@@ -641,6 +651,8 @@ let interval;
 let button = document.createElement("button");
 button.type = "button";
 button.classList.add("press");
+button.style.backgroundColor = currentTheme.buttonColor;
+button.style.color = currentTheme.textColor;
 button.innerHTML = "Проверить!";
 
 
@@ -649,6 +661,18 @@ button.addEventListener("mouseup", unfocus);
 content.appendChild(aside);
 
 aside = document.getElementsByClassName("aside").item(0);
+
+function repaint(theme){
+    document.body.style.backgroundColor = theme.backColor;
+    let header = document.getElementsByClassName("header").item(0);
+    header.style.color = theme.textColor;
+    let content = document.getElementsByClassName("content").item(0);
+    content.style.color = theme.textColor;
+}
+
+if(currentTheme != null){
+    repaint(currentTheme);
+}
 
 let div = document.createElement("div");
 div.classList.add("press_container");
@@ -675,6 +699,8 @@ if(level == 1){
         elem.href = "../pages/level2.html";
         elem.innerHTML = "Уровень 2";
         elem.classList.add("press");
+        elem.style.backgroundColor = currentTheme.buttonColor;
+        elem.style.color = currentTheme.textColor;
         let cont = document.createElement("div");
         cont.classList.add("press_container");
         cont.appendChild(elem);
@@ -701,6 +727,8 @@ if(level == 2){
         elem.href = "../pages/level3.html";
         elem.innerHTML = "Уровень 3";
         elem.classList.add("press");
+        elem.style.backgroundColor = currentTheme.buttonColor;
+        elem.style.color = currentTheme.textColor;
         let cont = document.createElement("div");
         cont.classList.add("press_container");
         cont.appendChild(elem);
@@ -727,6 +755,8 @@ if(level == 3){
         elem.href = "../pages/final.html";
         elem.innerHTML = "Результаты";
         elem.classList.add("press");
+        elem.style.backgroundColor = currentTheme.buttonColor;
+        elem.style.color = currentTheme.textColor;
         let cont = document.createElement("div");
         cont.classList.add("press_container");
         cont.appendChild(elem);

@@ -1,0 +1,137 @@
+body{
+    min-width: 900px;
+}
+
+input{
+    outline: 2px solid black;
+}
+
+.theme_container{
+    height: 6em;
+    min-width: 900px;
+}
+
+.theme_bar{
+    margin-top: -20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 50px;
+    font: 11pt 'Open Sans', serif;
+    outline: 2px solid black;
+}
+
+
+#marine{
+    background-color: #33af90;
+    width: 110px;
+}
+#marine::after{
+    content: "Морская";
+    color: black;
+    position: relative;
+    display: block;
+    left: 23px;
+    bottom: 18px;
+}
+#marine::before{
+    content: " ";
+    display: block;
+    position: relative;
+    height: 30px;
+    width: 80px;
+    top: 10px;
+    left: 15px;
+    background-color: #4B4E6D;
+}
+
+#forest{
+    background-color: #c0cf5e;
+    width: 100px;
+}
+#forest::after{
+    content: "Лесная";
+    color: black;
+    position: relative;
+    display: block;
+    left: 23px;
+    bottom: 18px;
+}
+#forest::before{
+    content: " ";
+    display: block;
+    position: relative;
+    height: 30px;
+    width: 70px;
+    top: 10px;
+    left: 15px;
+    background-color: #8f9619;
+}
+
+#default{
+    background-color: rgb(163,141,101);
+    width: 140px;
+}
+#default::after{
+    content: "Стандартная";
+    color: #FFFFFF;
+    position: relative;
+    display: block;
+    left: 23px;
+    bottom: 18px;
+}
+#default::before{
+    content: " ";
+    display: block;
+    position: relative;
+    height: 30px;
+    width: 110px;
+    top: 10px;
+    left: 15px;
+    background-color: rgb(194, 56, 56);
+}
+
+#soft{
+    background-color: #0075A2;
+    width: 100px;
+}
+#soft::after{
+    content: "Мягкая";
+    color: #ADF5FF;
+    position: relative;
+    display: block;
+    left: 23px;
+    bottom: 18px;
+}
+#soft::before{
+    content: " ";
+    display: block;
+    position: relative;
+    height: 30px;
+    width: 70px;
+    top: 10px;
+    left: 15px;
+    background-color: #481620;
+}
+
+#light{
+    background-color: white;
+    width: 105px;
+}
+#light::after{
+    content: "Светлая";
+    color: black;
+    position: relative;
+    display: block;
+    left: 23px;
+    bottom: 17px;
+}
+#light::before{
+    content: " ";
+    display: block;
+    position: relative;
+    height: 30px;
+    width: 75px;
+    top: 10px;
+    left: 15px;
+    background-color: grey;
+}

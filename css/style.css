@@ -133,6 +133,7 @@ p{
   }
 }
 
+
 @media all and (max-width: 1170px) {
     .game_content{
         flex-flow: column nowrap;
@@ -146,4 +147,18 @@ p{
         width: 70vw;
         height: 70vw;
     }
+}
+
+@font-face {
+    font-family: "Open Sans";  
+    src: url("../fonts/OpenSans.ttf") format("truetype"); 
+    font-style: normal; 
+    font-weight: normal;
+}
+     
+@font-face{
+    font-family: "Ubuntu";
+    src: url("../fonts/Ubuntu.ttf") format("truetype");
+    font-style: normal; 
+    font-weight: normal; 
 }
