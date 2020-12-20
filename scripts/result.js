@@ -9,6 +9,25 @@ const downloadToFile = (content, filename, contentType) => {
       URL.revokeObjectURL(a.href);
 };
 
+let currentTheme =  JSON.parse(localStorage.getItem("theme"));
+
+repaint(currentTheme);
+
+function repaint(theme){
+    document.body.style.backgroundColor = theme.backColor;
+    let header = document.getElementsByClassName("header").item(0);
+    header.style.color = theme.textColor;
+    let content = document.getElementsByClassName("content").item(0);
+    content.style.color = theme.textColor;
+    let footer = document.getElementsByClassName("footer").item(0);
+    footer.style.color = theme.textColor;
+    let buttons = document.getElementsByClassName("press");
+    for (let i = 0; i < buttons.length; i++){
+        buttons.item(i).style.backgroundColor = theme.buttonColor;
+        buttons.item(i).style.color = theme.textColor;
+    }
+}
+
 let level1 = [["с глухой согласной на конце", "с звонкой согласной на конце"],
 ["с буквой С в начале", "с буквой З в начале"]];
 
@@ -50,7 +69,7 @@ document.querySelector('#btnSave').addEventListener('click', () => {
 
     let grade;
     if((1000 - user.time - mistakes * 70) > 0){
-        grade = 1000 - user.time - mistakes * 70;
+        grade = 1000 - user.time - user.mistakes * 70;
     }
     else{
         grade = 0;

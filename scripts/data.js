@@ -6,6 +6,10 @@ let currentTheme =  JSON.parse(localStorage.getItem("theme"));
 if(currentTheme != null){
     repaint(currentTheme);
 }
+else{
+    currentTheme = new Colors("#FFFFFF", "rgb(163,141,101)", "rgb(194, 56, 56)");
+    localStorage.setItem("theme", JSON.stringify(currentTheme));
+}
 
 function repaint(theme){
     document.body.style.backgroundColor = theme.backColor;

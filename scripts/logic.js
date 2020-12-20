@@ -4,7 +4,7 @@ aside.classList.add("aside");
 let text = document.createElement("p");
 text.classList.add("text");
 text.innerHTML = "Выберите все слова ";
-currentTheme = JSON.parse(localStorage.getItem("theme"));
+let currentTheme = JSON.parse(localStorage.getItem("theme"));
 
 
 let images = document.getElementsByClassName("pic_content");
@@ -670,9 +670,7 @@ function repaint(theme){
     content.style.color = theme.textColor;
 }
 
-if(currentTheme != null){
-    repaint(currentTheme);
-}
+repaint(currentTheme);
 
 let div = document.createElement("div");
 div.classList.add("press_container");
