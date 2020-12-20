@@ -1,6 +1,17 @@
 body{
     background-color: rgb(163,141,101);
 }
+a{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    box-shadow: -2px -2px 0px 0px grey, 2px 2px 0px 0px black;
+    /*box-shadow: -1px 0px 0px 1px grey, 1px 0px 0px 1px black, 0px -1px 0px 1px grey, 0px 1px 0px 1px black;*/
+}
+
+input{
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
 
 .container{
     display: flex;
@@ -9,10 +20,17 @@ body{
 
 .header{
     order: 1;
-    font-family: 'Ubuntu', serif;
-    font-size: 26pt;
     color: white;
     flex: 0 1 10vh;
+}
+
+.head{
+    font-family: 'Ubuntu', serif;
+    font-size: 26pt;
+}
+.text{
+    font-family: 'Open Sans', serif;
+    font-size: 18pt;
 }
 
 p{
@@ -21,17 +39,13 @@ p{
 
 .content{
     order: 2;
-    font-family: 'Open Sans', serif;
-    font-size: 26pt;
     color: white;
-    flex: 1 1 75vh;
+    flex: 1 1 60vh;
 }
 
 .footer{
     order: 3;
     flex: 0 1 4vh;
-    font-family: 'Open Sans', serif;
-    font-size: 13pt;
     color: white;
 }
 
@@ -54,6 +68,7 @@ p{
 .game_content{
     display: flex;
     flex-flow: row nowrap;
+    flex: 1 1 75vh;
 }
 
 .aside{
@@ -72,12 +87,16 @@ p{
 }
 
 .press{
-    font: 12pt 'Open Sans', serif;
+    font: 16pt 'Open Sans', serif;
     color: white;
     background-color: rgb(194, 56, 56);
     padding: 0.3em 2em;
     position: relative;
     margin-bottom: 40px;
+}
+
+.action{
+    font: 22pt 'Ubuntu', serif;
 }
 
 .pic_content{

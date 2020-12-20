@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Результаты</title>
-    <link rel="icon" href="img/website_icon.png">
+    <link rel="icon" href="../img/website_icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto|Ubuntu"/>
@@ -12,15 +12,20 @@
     <div class="container">
         
         <div class="header">
-            <p>Игра "Увлекательная орфография"!</p>
+            <p class="head">Игра "Увлекательная орфография"!</p>
         </div>
         <div class="content">
-            <p>Вы прошли игру!</p>
+            <p class="head">Вы прошли игру!</p>
+            <p class="text" id="area"></p>
+            <p class="text">Скачать подробный отчет:</p>
+            <div class="press_container">
+                <button type="button" class="press" id="btnSave">Скачать</button>
+            </div>
         </div>
         <footer class="footer">
-            <p>Лебедев Владимир, группа 3530903/80302</p>
+            <p class="text">Лебедев Владимир, группа 3530903/80302</p>
         </footer>
-
+        <script src="../scripts/result.js"></script>
     </div>
 </body>
 </html>
