@@ -68,14 +68,17 @@ document.querySelector('#btnSave').addEventListener('click', () => {
     textArea += "\nЗадание уровня 3: " + text + level3[task][variant] + "\nВремя на уровень 3: " + time + "\nОшибок на уровне 3: " + user.level3mistakes;
 
     let grade;
-    if((1000 - user.time - mistakes * 70) > 0){
-        grade = 1000 - user.time - user.mistakes * 70;
+    if((1100 - user.time - user.mistakes * 80) > 0){
+        grade = 1100 - user.time - user.mistakes * 80;
     }
-    else{
+    if((1100 - user.time - user.mistakes * 80) > 1000){
+        grade = 1000;
+    }
+    else if((1100 - user.time - user.mistakes * 80) <= 0){
         grade = 0;
     }
     
-    textArea += "\nОбщий балл: " + grade + " (из 10)";
+    textArea += "\nОбщий балл: " + grade + " (из 1000)";
 
     downloadToFile(textArea, 'result.txt', 'text/plain');
   });
