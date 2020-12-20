@@ -135,7 +135,6 @@ function fillImages(){
     let trueCount = randomInt(1, (PicsCount / 2) + 1);
     let falseCount = PicsCount - trueCount;
     while((truePics.length + falsePics.length < PicsCount) && picsIndexes.length > 0){
-        console.log("loop? truePics: " + truePics.length + " , trueCount: " + trueCount + " , falsePics: " + falsePics.length + " , falseCount: " + falseCount + " , pics left: " + picsIndexes.length);
         picIndexIndex = randomInt(0, picsIndexes.length - 1);
         picIndex = picsIndexes[picIndexIndex];
         flag = false;
@@ -164,10 +163,6 @@ function fillImages(){
         }
     }
 
-    if (truePics.length == 0){
-        console.log("не нашлось картинок!");
-    }
-
     if (trueCount > truePics.length){
         trueCount = randomInt(1, truePics.length);
         if (trueCount != truePics.length){
@@ -178,7 +173,6 @@ function fillImages(){
     
     let ctr = 0;
     while (falsePics.length < falseCount){
-        console.log("add...");
         falsePics.push(fillingPics[ctr]);
         ctr++;
     }
@@ -212,7 +206,6 @@ function fillImagesDouble(doubleFlag){
     let trueCount = randomInt(1, (PicsCount / 2) + 1);
     let falseCount = PicsCount - trueCount;
     while((truePics.length + falsePics.length < PicsCount || truePics.length < trueCount) && picsIndexes.length > 0){ // условие норм?
-        console.log("loop!");
         picIndexIndex = randomInt(0, picsIndexes.length - 1);
         picIndex = picsIndexes[picIndexIndex];
         flag = reg1.test(pics[picIndex].word);
@@ -226,10 +219,6 @@ function fillImagesDouble(doubleFlag){
             falsePics.push(picIndex);
             picsIndexes.splice(picIndexIndex, 1);
         }
-    }
-
-    if (truePics.length == 0){
-        console.log("не нашлось картинок!");
     }
 
     if (trueCount > truePics.length){
@@ -279,7 +268,6 @@ function fillImagesSkl(Skl, doubleFlag){
     let trueCount = randomInt(1, (PicsCount / 2) + 1);
     let falseCount = PicsCount - trueCount;
     while((truePics.length + falsePics.length < PicsCount) && picsIndexes.length > 0){ // условие норм?
-        console.log("loop~ Skl: " + Skl + " truePics: " + truePics.length + " , trueCount: " + trueCount + " , falsePics: " + falsePics.length + " , falseCount: " + falseCount + " , pics left: " + picsIndexes.length);
         picIndexIndex = randomInt(0, picsIndexes.length - 1);
         picIndex = picsIndexes[picIndexIndex];
         flag = false;
@@ -307,10 +295,6 @@ function fillImagesSkl(Skl, doubleFlag){
         }
     }
 
-    if (truePics.length == 0){
-        console.log("не нашлось картинок!");
-    }
-
     if (trueCount > truePics.length){
         trueCount = randomInt(1, truePics.length);
         if (trueCount != truePics.length){
@@ -321,7 +305,6 @@ function fillImagesSkl(Skl, doubleFlag){
     
     let ctr = 0;
     while (falsePics.length < falseCount){
-        console.log("add...");
         falsePics.push(fillingPics[ctr]);
         ctr++;
     }
@@ -378,7 +361,6 @@ switch(PicsCount){
         break;
 }
 
-console.log(user.level1);
 let variant = randomInt(0, 1);
 let full;
 if(level == 1){
@@ -561,8 +543,6 @@ let anim;
 
 function check(){
     let selected = document.getElementsByClassName("selected");
-    console.log(selected.length);
-    console.log(trueIDs.length);
     let data = JSON.parse(localStorage.getItem("user"));
     if (selected.length != trueIDs.length){
         data.mistakes++;
@@ -583,8 +563,6 @@ function check(){
         if(selected.item(i).id != String(trueIDs[i])){
             data.mistakes++;
             counter.innerHTML = "Неправильных ответов: " + data.mistakes;
-            console.log(selected.item(i).id);
-            console.log(trueIDs[i]);
             localStorage.setItem("user", JSON.stringify(data));
             anim = document.getElementById('failure');
             anim.style.display = 'block';
@@ -761,8 +739,3 @@ if(level == 3){
         aside.appendChild(cont);
     }
 }
-/*
-let user = JSON.parse(localStorage.getItem("user"));
-
-console.log(user.mistakes);
-*/

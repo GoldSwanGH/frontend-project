@@ -39,10 +39,14 @@ let level3 = [["1-го склонения", "НЕ 1-го склонения"],
 ["2-го склонения", "НЕ 2-го склонения"],
 ["3-го склонения", "НЕ 3-го склонения"]];
 
+function unfocus(event){
+    event.currentTarget.blur();
+}
+
 let area = document.getElementById("area");
 let data = JSON.parse(localStorage.getItem("user"));
 area.innerHTML = "Имя игрока: " + data.name + "<br>Неправильных ответов: " + data.mistakes + "<br>Общее время: " + Math.floor(data.time/60) + " мин. " + (Math.round((data.time % 60)*10) / 10) + " сек.";
-
+document.querySelector('#btnSave').addEventListener("mouseup", unfocus);
 document.querySelector('#btnSave').addEventListener('click', () => {
     let user = JSON.parse(localStorage.getItem("user"));
     let time = Math.floor(user.time/60) + " мин. " + (Math.round((user.time % 60)*10) / 10) + " сек.";
