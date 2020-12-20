@@ -104,11 +104,46 @@ p{
     width: inherit;
 }
 
+.reaction{
+    display: none;
+    position: absolute;
+    z-index: 6;
+    margin-top: 5%;
+    margin-left: 17%;
+    width: 42vw;
+    height: 42vw;
+    opacity: 0%;
+}
+
+.anim{
+    animation-name: success;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+}
+
+@keyframes success{
+  0%{
+      opacity: 0%;
+  }
+  50%{
+      opacity: 100%;
+  }
+  100%{
+      opacity: 0%;
+  }
+}
+
 @media all and (max-width: 1170px) {
     .game_content{
         flex-flow: column nowrap;
     }
     .level{
         order: 3;
+    }
+    .reaction{
+        margin-top: 37%;
+        margin-left: 13%;
+        width: 70vw;
+        height: 70vw;
     }
 }

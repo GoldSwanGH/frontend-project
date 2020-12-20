@@ -556,6 +556,7 @@ aside.appendChild(counter);
 aside.appendChild(timer);
 aside.appendChild(text);
 localStorage.setItem("user", JSON.stringify(user));
+let anim;
 
 function check(){
     let selected = document.getElementsByClassName("selected");
@@ -566,6 +567,13 @@ function check(){
         data.mistakes++;
         counter.innerHTML = "Счетчик ошибок: " + data.mistakes;
         localStorage.setItem("user", JSON.stringify(data));
+        anim = document.getElementById('failure');
+        anim.style.display = 'block';
+        anim.classList.add('anim');
+        setTimeout(() => {
+            anim.classList.remove('anim');
+            anim.style.display = 'none';
+        }, 4000);
         return;
     }
     for (let i = 0; i < selected.length; i++){
@@ -575,14 +583,27 @@ function check(){
             console.log(selected.item(i).id);
             console.log(trueIDs[i]);
             localStorage.setItem("user", JSON.stringify(data));
+            anim = document.getElementById('failure');
+            anim.style.display = 'block';
+            anim.classList.add('anim');
+            setTimeout(() => {
+                anim.classList.remove('anim');
+                anim.style.display = 'none';
+            }, 4000);
             return;
         }
     }
-    alert("правильно!");
+    anim = document.getElementById('success');
+    anim.style.display = 'block';
+    anim.classList.add('anim');
+    setTimeout(() => {
+        anim.classList.remove('anim');
+        anim.style.display = 'none';
+    }, 4000);
     clearInterval(interval);
     let win = document.createElement("p");
     win.classList.add("head");
-    win.innerHTML = "Уровень пройден!";
+    win.innerHTML = " Уровень пройден!";
     aside.appendChild(win);
     let elem = document.createElement("a");
     if (level == 1){
@@ -648,7 +669,7 @@ if(level == 1){
         button.remove();
         let win = document.createElement("p");
         win.classList.add("head");
-        win.innerHTML = "Уровень пройден!";
+        win.innerHTML = " Уровень пройден!";
         aside.appendChild(win);
         let elem = document.createElement("a");
         elem.href = "../pages/level2.html";
@@ -674,7 +695,7 @@ if(level == 2){
         button.remove();
         let win = document.createElement("p");
         win.classList.add("head");
-        win.innerHTML = "Уровень пройден!";
+        win.innerHTML = " Уровень пройден!";
         aside.appendChild(win);
         let elem = document.createElement("a");
         elem.href = "../pages/level3.html";
@@ -700,7 +721,7 @@ if(level == 3){
         button.remove();
         let win = document.createElement("p");
         win.classList.add("head");
-        win.innerHTML = "Уровень пройден!";
+        win.innerHTML = " Уровень пройден!";
         aside.appendChild(win);
         let elem = document.createElement("a");
         elem.href = "../pages/final.html";
