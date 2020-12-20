@@ -42,11 +42,11 @@ input{
     width: 80px;
     top: 10px;
     left: 15px;
-    background-color: #4B4E6D;
+    background-color: #525577;
 }
 
 #forest{
-    background-color: #c0cf5e;
+    background-color: #a6d68a;
     width: 100px;
 }
 #forest::after{
@@ -65,7 +65,7 @@ input{
     width: 70px;
     top: 10px;
     left: 15px;
-    background-color: #8f9619;
+    background-color: #838a24;
 }
 
 #default{

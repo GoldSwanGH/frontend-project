@@ -29,11 +29,11 @@ function repaint(theme){
 function changeTheme(event){
     switch (event.currentTarget.id){
         case "marine":
-            currentTheme = new Colors("black", "#33af90", "#4B4E6D");
+            currentTheme = new Colors("black", "#33af90", "#525577");
             repaint(currentTheme);
             break;
         case "forest":
-            currentTheme = new Colors("black", "#a4b632", "#8f9619");
+            currentTheme = new Colors("black", "#a6d68a", "#838a24");
             repaint(currentTheme);
             break;
         case "default":

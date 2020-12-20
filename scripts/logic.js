@@ -548,7 +548,7 @@ aside.appendChild(p);
 let counter = document.createElement("p");
 counter.classList.add("text");
 counter.id = "counter";
-counter.innerHTML = "Счетчик ошибок: " + user.mistakes;
+counter.innerHTML = "Неправильных ответов: " + user.mistakes;
 let timer = document.createElement("p");
 timer.classList.add("text");
 timer.id = "timer";
@@ -566,7 +566,7 @@ function check(){
     let data = JSON.parse(localStorage.getItem("user"));
     if (selected.length != trueIDs.length){
         data.mistakes++;
-        counter.innerHTML = "Счетчик ошибок: " + data.mistakes;
+        counter.innerHTML = "Неправильных ответов: " + data.mistakes;
         localStorage.setItem("user", JSON.stringify(data));
         anim = document.getElementById('failure');
         anim.style.display = 'block';
@@ -582,7 +582,7 @@ function check(){
     for (let i = 0; i < selected.length; i++){
         if(selected.item(i).id != String(trueIDs[i])){
             data.mistakes++;
-            counter.innerHTML = "Счетчик ошибок: " + data.mistakes;
+            counter.innerHTML = "Неправильных ответов: " + data.mistakes;
             console.log(selected.item(i).id);
             console.log(trueIDs[i]);
             localStorage.setItem("user", JSON.stringify(data));
