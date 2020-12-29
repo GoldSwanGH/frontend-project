@@ -11,6 +11,7 @@ let images = document.getElementsByClassName("pic_content");
 let PicsCount = images.length; // от 1 до (PicsCount / 2) + 1
 let level1 = [["с глухой согласной на конце", "с звонкой согласной на конце"],
 ["с буквой С в начале", "с буквой З в начале"]];
+let level1Index = [0, 1, 2, 3];
 
 let level2 = [["с удвоенной буквой", "без удвоенной буквы"],
 ["с буквой Ё после Ч, Ж, Ш или Щ", "с буквой О после Ч, Ж, Ш или Щ"],
@@ -337,6 +338,23 @@ function fillImagesSkl(Skl, doubleFlag){
     }
 }
 
+
+function pseudoRandomInt(min, max, lvl_1, lvl0) { // включая min и max
+    let random1;
+    let random2;
+    let output;
+    oldTask1 = Number(lvl_1.slice(0, 1));
+    oldVariant1 = Number(lvl_1.slice(2));
+    oldTask2 = Number(lvl0.slice(0, 1));
+    oldVariant2 = Number(lvl0.slice(2));
+    do{
+        random1 =  min + Math.floor((max + 1 - min) * Math.random());
+        random2 =  min + Math.floor((max + 1 - min) * Math.random()); 
+        output = String(random1) + " " + String(random2);
+    }while(lvl_1 == output || lvl0 == output);
+    return output;
+}
+
 let user = JSON.parse(localStorage.getItem("user"));
 
 let level;
@@ -345,12 +363,31 @@ let falsePics = [];
 let fillingPics = [];
 let trueIDs = [];
 let task;
+let taskIndex;
+let variant = randomInt(0, 1);
+let oldTask;
+let oldVariant;
+let full;
 
 switch(PicsCount){
     case 6:
         level = 1;
-        task = randomInt(0, level1.length - 1);
-        break;
+        if(user.level1_state == undefined){
+            task = randomInt(0, level1.length - 1);
+            break;
+        }
+        if(user.level1_state == -1){
+            full = pseudoRandomInt(0, level1.length - 1, user.level_1, "-1 -1"); //добавить псевдорандом на основе уже выпавших значений
+            task = full.slice(0, 1);
+            variant = full.slice(2);
+            break;
+        }
+        if(user.level1_state == 0){
+            full = pseudoRandomInt(0, level1.length - 1, user.level_1, user.level0);
+            task = full.slice(0, 1);
+            variant = full.slice(2);
+            break;
+        }
     case 10:
         level = 2;
         task = randomInt(0, level2.length - 1);
@@ -361,11 +398,29 @@ switch(PicsCount){
         break;
 }
 
-let variant = randomInt(0, 1);
-let full;
-if(level == 1){
-    if(user.level1 == undefined){
+if(level == 1 && user.level1_state == undefined){
+    if(user.level_1 == undefined){
         full = String(task) + " " + String(variant);
+        user.level_1 = full;
+    }
+    else{
+        full = user.level_1;
+        task = user.level_1.slice(0, 1);
+        variant = user.level_1.slice(2);
+    }
+}
+if(level == 1 && user.level1_state == -1){
+    if(user.level0 == undefined){
+        user.level0 = full;
+    }
+    else{
+        full = user.level0;
+        task = user.level0.slice(0, 1);
+        variant = user.level0.slice(2);
+    }
+}
+if(level == 1 && user.level1_state == 0){
+    if(user.level1 == undefined){
         user.level1 = full;
     }
     else{
@@ -396,7 +451,6 @@ if(level == 3){
         variant = user.level3.slice(2);
     }
 }
-
 let reg;
 let reg1;
 let reg2;
@@ -482,6 +536,7 @@ else if (level == 3) {
             fillImagesSkl(3, false);
             break;
     }
+    text.innerHTML += "<br>";
     text.innerHTML += level3[task][variant];
 }
 
@@ -517,8 +572,14 @@ for (let x = 0; x < press.length; x++){
 
 let p = document.createElement("p");
 p.classList.add("head");
-if (level == 1){
-    p.innerHTML = "Уровень 1";
+if (level == 1 && user.level1_state == undefined){
+    p.innerHTML = "Уровень 1 \n Задание 1";
+}
+else if (level == 1 && user.level1_state == -1){
+    p.innerHTML = "Уровень 1 \n Задание 2";
+}
+else if (level == 1 && user.level1_state == 0){
+    p.innerHTML = "Уровень 1 \n Задание 3";
 }
 else if (level == 2){
     p.innerHTML = "Уровень 2";
@@ -540,6 +601,28 @@ aside.appendChild(timer);
 aside.appendChild(text);
 localStorage.setItem("user", JSON.stringify(user));
 let anim;
+let failureFlag = false;
+
+function helper(flag){
+    if (flag == true){
+        return;
+    }
+    else{
+        let help = document.createElement("img");
+        help.src = "../img/help.png";
+        help.classList.add("help");
+        let box = document.createElement("div");
+        box.classList.add("help_box");
+        box.appendChild(help);
+        aside.appendChild(box);
+        //let hdr = document.getElementsByClassName("header").item(0);
+        //hdr.classList.add("flex_header");
+        //hdr.appendChild(help);
+        return box;
+    }
+}
+
+let help_box;
 
 function check(){
     let selected = document.getElementsByClassName("selected");
@@ -557,6 +640,10 @@ function check(){
             anim.style.display = 'none';
             button.addEventListener("click", check);
         }, 4000);
+        if (level == 3 && failureFlag == false){
+            help_box = helper(failureFlag);
+            failureFlag = true;
+        }
         return;
     }
     for (let i = 0; i < selected.length; i++){
@@ -586,26 +673,42 @@ function check(){
     clearInterval(interval);
     let win = document.createElement("p");
     win.classList.add("head");
-    win.innerHTML = " Уровень пройден!";
+    win.innerHTML = "Молодец!";
     aside.appendChild(win);
     let elem = document.createElement("a");
-    if (level == 1){
+    if (level == 1 && data.level1_state == undefined){
+        data.level1_state = -1;
+        elem.href = "../pages/level1.html";
+        elem.innerHTML = "Продолжить";
+    }
+    else if (level == 1 && data.level1_state == -1){
+        data.level1_state = 0;
+        elem.href = "../pages/level1.html";
+        elem.innerHTML = "Продолжить";
+    }
+    else if (level == 1 && data.level1_state == 0){
         data.level1Time = data.time;
         data.level1mistakes = data.mistakes;
         elem.href = "../pages/level2.html";
         elem.innerHTML = "Уровень 2";
     }
-    if (level == 2){
+    else if (level == 2){
         data.level2Time = data.time;
         data.level2mistakes = data.mistakes - data.level1mistakes;
         elem.href = "../pages/level3.html";
         elem.innerHTML = "Уровень 3";
     }
-    if (level == 3){
+    else if (level == 3){
         data.level3Time = data.time;
         data.level3mistakes = data.mistakes - data.level1mistakes - data.level2mistakes;
+        let finalDate = new Date();
+        let file = "result_" + data.name + '_' + finalDate.getHours() + 'h-' + finalDate.getMinutes() + "m.txt";
+        data.fileName = file;
         elem.href = "../pages/final.html";
         elem.innerHTML = "Результаты";
+    }
+    if(failureFlag == true){
+        help_box.remove();
     }
     elem.classList.add("press");
     elem.style.backgroundColor = currentTheme.buttonColor;

@@ -54,22 +54,27 @@ document.querySelector('#btnSave').addEventListener('click', () => {
 
     let text = "Выберите все слова ";
 
+    let task_1 = user.level_1.slice(0, 1);
+    let variant_1 = user.level_1.slice(2);
+    let task0 = user.level0.slice(0, 1);
+    let variant0 = user.level0.slice(2);
     let task = user.level1.slice(0, 1);
     let variant = user.level1.slice(2);
     time = Math.floor(user.level1Time/60) + " мин. " + (Math.round((user.level1Time % 60)*10) / 10) + " сек.";
-    textArea += "\nЗадание уровня 1: " + text + level1[task][variant] + "\nВремя на уровень 1: " + time + "\nОшибок на уровне 1: " + user.level1mistakes;
+    textArea += "\nУровень 1:\nЗадание 1:" + text + level1[task_1][variant_1] + "\nЗадание 2:" + text + level1[task0][variant0] + "\nЗадание 3:" + text + level1[task][variant];
+    textArea += "\nВремя на уровень 1: " + time + "\nОшибок на уровне 1: " + user.level1mistakes;
 
 
     task = user.level2.slice(0, 1);
-    variant = user.level2.slice(2); 
+    variant = user.level2.slice(2);
     time = Math.floor((user.level2Time - user.level1Time)/60) + " мин. " + (Math.round(((user.level2Time - user.level1Time) % 60)*10) / 10) + " сек.";
-    textArea += "\nЗадание уровня 2: " + text + level2[task][variant] + "\nВремя на уровень 2: " + time + "\nОшибок на уровне 2: " + user.level2mistakes;
+    textArea += "\nУровень 2:\nЗадание: " + text + level2[task][variant] + "\nВремя на уровень 2: " + time + "\nОшибок на уровне 2: " + user.level2mistakes;
 
 
     task = user.level3.slice(0, 1);
     variant = user.level3.slice(2);
     time = Math.floor((user.level3Time - user.level2Time)/60) + " мин. " + (Math.round(((user.level3Time - user.level2Time) % 60)*10) / 10) + " сек.";
-    textArea += "\nЗадание уровня 3: " + text + level3[task][variant] + "\nВремя на уровень 3: " + time + "\nОшибок на уровне 3: " + user.level3mistakes;
+    textArea += "\nУровень 3:\nЗадание:" + text + level3[task][variant] + "\nВремя на уровень 3: " + time + "\nОшибок на уровне 3: " + user.level3mistakes;
 
     let grade = 1100 - user.time - user.level1mistakes * 140 - user.level2mistakes * 80 - user.level3mistakes * 70;
     
@@ -82,5 +87,5 @@ document.querySelector('#btnSave').addEventListener('click', () => {
     
     textArea += "\nОбщий балл: " + grade + " (из 1000)";
 
-    downloadToFile(textArea, 'result.txt', 'text/plain');
+    downloadToFile(textArea, user.fileName, 'text/plain');
   });

@@ -5,7 +5,6 @@ function pseudoRandomInt(min, max, lastRandom1, lastRandom2) { // включая
     let random;
     do{
         random =  min + Math.floor((max + 1 - min) * Math.random());
-        console.log(random);
     }while(lastRandom1 == random || lastRandom2 == random);
     return random;
 }
@@ -43,6 +42,4 @@ for (let i = 0; i < sections.length; i++){
         lastAlign[i] = random;
         sections.item(i).style.alignItems = positions[random];
     }
-    console.log("section "+ i + " justify-content: " + sections.item(i).style.justifyContent);
-    console.log("section "+ i + " align-items: " + sections.item(i).style.alignItems);
 }
